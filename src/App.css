@@ -1,0 +1,11 @@
+textarea {
+  padding: 1rem;
+  border-color: lightgray;
+  border-radius: 4px;
+  transition: .3s;
+
+  &:focus {
+    border-color: #1976d2;
+    outline: none;
+  }
+}
