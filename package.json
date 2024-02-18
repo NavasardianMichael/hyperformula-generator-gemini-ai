@@ -1,5 +1,6 @@
 {
   "name": "ai-test-app",
+  "homepage": "https://NavasardianMichael.github.io/hyperformula-generator-gemini-ai",
   "private": true,
   "version": "1.1.1",
   "type": "module",
