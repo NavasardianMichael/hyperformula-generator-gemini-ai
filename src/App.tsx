@@ -10,7 +10,7 @@ import { useState } from "react";
 import "./App.css";
 
 function App() {
-  const API_KEY = "AIzaSyBmi0SU10YpLHumjMP9K-qLdV3tuySITvc";
+  const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
   const [data, setData] = useState("---");
   const [inputText, setInputText] = useState("");
   const [loading, setLoading] = useState(false);
