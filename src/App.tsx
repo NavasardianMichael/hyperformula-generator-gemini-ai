@@ -4,6 +4,7 @@ import {
   Button,
   Container,
   CssBaseline,
+  Divider,
   Slider,
   TextField,
   Typography,
@@ -85,8 +86,9 @@ function App() {
             fullWidth
             onChange={(e) => setPostPromptText(e.target.value)}
           />
+          <Divider />
           <Box>
-            <Typography gutterBottom>Temperature controls the randomness of the output. A higher temperature results in more creative and less predictable outputs, while a lower temperature produces more conservative and expected results.</Typography>          
+            <Typography>Temperature controls the randomness of the output. A higher temperature results in more creative and less predictable outputs, while a lower temperature produces more conservative and expected results.</Typography>          
             <Slider
               max={1}
               min={0}
