@@ -95,7 +95,9 @@ function App() {
               marks
               value={temperature}
               disabled={loading}
-              onChange={(e) => setTemperature(+e.target.value)}
+              onChange={(_, v) => {
+                setTemperature(+v)
+              }}
             />
           </Box>
           <Button
