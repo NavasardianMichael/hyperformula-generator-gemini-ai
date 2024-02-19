@@ -4,7 +4,9 @@ import {
   Button,
   Container,
   CssBaseline,
-  Typography
+  Slider,
+  TextField,
+  Typography,
 } from "@mui/material";
 import { useState } from "react";
 import "./App.css";
@@ -12,7 +14,10 @@ import "./App.css";
 function App() {
   const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
   const [data, setData] = useState("---");
+  const [prePromptText, setPrePromptText] = useState('Generate excel formula as hyperformula based on the following prompt');
+  const [postPromptText, setPostPromptText] = useState(' Please make sure it starts with "=".');
   const [inputText, setInputText] = useState("");
+  const [temperature, setTemperature] = useState(0.5);
   const [loading, setLoading] = useState(false);
 
   async function fetchDataFromGeminiProAPI() {
@@ -22,13 +27,14 @@ function App() {
       }
       setLoading(true);
       const genAI = new GoogleGenerativeAI(API_KEY);
-      const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+      const model = genAI.getGenerativeModel({
+        model: "gemini-pro",
+        generationConfig: { temperature },
+      });
 
       const result = await model.generateContent(
         `
-        Generate hyperformula based on the prompt:
-        ${inputText}
-        `
+        ${prePromptText}: ${inputText}. ${postPromptText}`
       );
       const text = result.response.text();
       setLoading(false);
@@ -54,28 +60,50 @@ function App() {
         <Typography component="h1" variant="h5">
           GEMINI AI
         </Typography>
-        <Box
-          style={{ width: 400 }}
-          sx={{ mt: 3 }}
-        >
+        <Box style={{ width: 600, display: 'flex', flexDirection: 'column', gap: 16 }} sx={{ mt: 3 }}>
+          <TextField 
+            value={prePromptText}
+            disabled={loading}
+            label="Prompt pre text"
+            fullWidth
+            onChange={(e) => setPrePromptText(e.target.value)}
+          />
           <textarea
             required
             disabled={loading}
             placeholder="Enter formula description here"
-            style={{ width: 400 }}
-            autoFocus
+            rows={8}
             value={inputText}
             onChange={(e) => {
-              setInputText(e.target.value)
+              setInputText(e.target.value);
             }}
           />
+          <TextField 
+            value={postPromptText}
+            disabled={loading}
+            label="Prompt pre text"
+            fullWidth
+            onChange={(e) => setPostPromptText(e.target.value)}
+          />
+          <Box>
+            <Typography gutterBottom>Tooltip value label</Typography>          
+            <Slider
+              max={1}
+              min={0}
+              valueLabelDisplay='auto'
+              step={.1}
+              marks
+              value={temperature}
+              disabled={loading}
+              onChange={(e) => setTemperature(+e.target.value)}
+            />
+          </Box>
           <Button
             type="submit"
             fullWidth
             disabled={loading || !inputText}
             onClick={() => fetchDataFromGeminiProAPI()}
             variant="contained"
-            sx={{ mt: 3, mb: 2 }}
           >
             Prompt the Formula
           </Button>
@@ -87,6 +115,5 @@ function App() {
     </Container>
   );
 }
-
 
 export default App;
