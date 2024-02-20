@@ -82,7 +82,7 @@ function App() {
           <TextField 
             value={postPromptText}
             disabled={loading}
-            label="Prompt pre text"
+            label="Prompt post text"
             fullWidth
             onChange={(e) => setPostPromptText(e.target.value)}
           />
