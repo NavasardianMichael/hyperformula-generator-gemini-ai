@@ -1,5 +1,7 @@
 textarea {
   padding: 1rem;
+  font-size: 1rem !important;
+  background-color: red #fff;
   border-color: lightgray;
   border-radius: 4px;
   transition: .3s;

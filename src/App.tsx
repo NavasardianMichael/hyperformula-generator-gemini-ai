@@ -88,6 +88,7 @@ function App() {
           />
           <Divider />
           <Box>
+            <Typography variant="h6">Temperature</Typography>          
             <Typography>Temperature controls the randomness of the output. A higher temperature results in more creative and less predictable outputs, while a lower temperature produces more conservative and expected results.</Typography>          
             <Slider
               max={1}
